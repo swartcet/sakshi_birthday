@@ -7,316 +7,59 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: #fdf6f0;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-      color: #3a2a2a;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 65% 55% at 8% 12%, #f5e6e0 0%, transparent 55%),
-        radial-gradient(ellipse 55% 55% at 92% 85%, #f0e8f5 0%, transparent 55%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .petal {
-      position: fixed;
-      border-radius: 50% 0 50% 0;
-      opacity: 0;
-      pointer-events: none;
-      animation: fall linear infinite;
-      z-index: 0;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-20px) rotate(0deg) translateX(0px); opacity: 0.8; }
-      50%  { transform: translateY(50vh) rotate(180deg) translateX(30px); opacity: 0.5; }
-      100% { transform: translateY(110vh) rotate(360deg) translateX(-20px); opacity: 0; }
-    }
-
-    .screen {
-      display: none;
-      position: fixed;
-      inset: 0;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 2rem;
-      z-index: 2;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: #fdf6f0; height: 100vh; overflow: hidden; position: relative; color: #3a2a2a; }
+    body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 65% 55% at 8% 12%, #f5e6e0 0%, transparent 55%), radial-gradient(ellipse 55% 55% at 92% 85%, #f0e8f5 0%, transparent 55%); pointer-events: none; z-index: 0; }
+    .petal { position: fixed; border-radius: 50% 0 50% 0; opacity: 0; pointer-events: none; animation: fall linear infinite; z-index: 0; }
+    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+    .screen { display: none; position: fixed; inset: 0; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 2rem; z-index: 2; }
     .screen.active { display: flex; animation: fadeIn 1s ease; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: none; }
-    }
-
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
     #s-start .blossom { font-size: 2.2rem; margin-bottom: 1.2rem; animation: pulse 2.2s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
-
-    #s-start h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 9vw, 5.5rem);
-      font-weight: 300;
-      font-style: italic;
-      color: #8b3a3a;
-      line-height: 1.1;
-      margin-bottom: 0.8rem;
-    }
-    #s-start p {
-      font-size: 1rem;
-      color: #9a7575;
-      font-weight: 300;
-      letter-spacing: 0.06em;
-      margin-bottom: 2.8rem;
-    }
-    .start-btn {
-      border: 1px solid #c9a0a0;
-      background: transparent;
-      color: #8b3a3a;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 0.85rem 2.4rem;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.35s;
-    }
+    #s-start h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 9vw, 5.5rem); font-weight: 300; font-style: italic; color: #8b3a3a; line-height: 1.1; margin-bottom: 0.8rem; }
+    #s-start p { font-size: 1rem; color: #9a7575; font-weight: 300; letter-spacing: 0.06em; margin-bottom: 2.8rem; }
+    .start-btn { border: 1px solid #c9a0a0; background: transparent; color: #8b3a3a; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2.4rem; border-radius: 100px; cursor: pointer; transition: all 0.35s; }
     .start-btn:hover { background: #8b3a3a; color: #fff; border-color: #8b3a3a; }
-
     #s-story { justify-content: space-between; padding: 2rem 1.5rem 1.5rem; }
-
-    .story-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      flex: 1;
-      width: 100%;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
+    .story-wrap { display: flex; align-items: center; justify-content: center; flex-direction: column; flex: 1; width: 100%; max-width: 860px; margin: 0 auto; }
     .card { display: none; width: 100%; align-items: center; justify-content: center; gap: 3rem; flex-direction: row; }
     .card.active { display: flex; animation: cardIn 0.85s cubic-bezier(0.22,1,0.36,1); }
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(28px) scale(0.97); }
-      to   { opacity: 1; transform: none; }
-    }
-
-    @media (max-width: 680px) {
-      .card { flex-direction: column; gap: 1.6rem; }
-    }
-
-    .polaroid {
-      background: #fff;
-      padding: 12px 12px 42px 12px;
-      box-shadow: 0 6px 32px rgba(100,40,40,0.10), 0 2px 8px rgba(100,40,40,0.06);
-      transform: rotate(-3deg);
-      flex-shrink: 0;
-      width: 220px;
-      transition: transform 0.4s ease;
-    }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(28px) scale(0.97); } to { opacity: 1; transform: none; } }
+    @media (max-width: 680px) { .card { flex-direction: column; gap: 1.6rem; } }
+    .polaroid { background: #fff; padding: 12px 12px 42px 12px; box-shadow: 0 6px 32px rgba(100,40,40,0.10), 0 2px 8px rgba(100,40,40,0.06); transform: rotate(-3deg); flex-shrink: 0; width: 220px; transition: transform 0.4s ease; }
     .polaroid:hover { transform: rotate(0deg) scale(1.02); }
     .card:nth-child(even) .polaroid { transform: rotate(2.5deg); }
-    .card:nth-child(even) .polaroid:hover { transform: rotate(0deg) scale(1.02); }
-
-    .polaroid-img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      display: block;
-      background: linear-gradient(135deg, #f5e6e6 0%, #eedede 100%);
-      min-height: 196px;
-    }
-
-    .polaroid-caption {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: #8b5a5a;
-      text-align: center;
-      margin-top: 8px;
-      line-height: 1.3;
-    }
-
+    .polaroid-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: linear-gradient(135deg, #f5e6e6 0%, #eedede 100%); min-height: 196px; }
+    .polaroid-caption { font-family: 'Caveat', cursive; font-size: 1rem; color: #8b5a5a; text-align: center; margin-top: 8px; }
     .card-text { max-width: 380px; text-align: left; }
-
-    .chapter-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #c9a0a0;
-      margin-bottom: 0.6rem;
-    }
-
-    .card-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.9rem, 4vw, 2.8rem);
-      font-weight: 300;
-      font-style: italic;
-      color: #5c2a2a;
-      line-height: 1.2;
-      margin-bottom: 0.7rem;
-    }
-
+    .chapter-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a0a0; margin-bottom: 0.6rem; }
+    .card-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 300; font-style: italic; color: #5c2a2a; line-height: 1.2; margin-bottom: 0.7rem; }
     .divider { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
     .divider span { height: 1px; width: 40px; background: #e8cece; display: block; }
     .divider em { font-size: 0.6rem; color: #d4a0a0; font-style: normal; }
-
-    .card-text p {
-      font-size: 0.98rem;
-      line-height: 1.95;
-      color: #6a5050;
-      font-weight: 300;
-    }
-
-    .nav-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.4rem;
-      padding-top: 1rem;
-      width: 100%;
-    }
-
-    .nav-btn {
-      border: 1px solid #c9a0a0;
-      background: transparent;
-      color: #8b3a3a;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.6rem 1.6rem;
-      border-radius: 100px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
+    .card-text p { font-size: 0.98rem; line-height: 1.95; color: #6a5050; font-weight: 300; }
+    .nav-bar { display: flex; align-items: center; justify-content: center; gap: 1.4rem; padding-top: 1rem; width: 100%; }
+    .nav-btn { border: 1px solid #c9a0a0; background: transparent; color: #8b3a3a; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border-radius: 100px; cursor: pointer; transition: all 0.3s; }
     .nav-btn:hover { background: #8b3a3a; color: #fff; border-color: #8b3a3a; }
     .nav-btn:disabled { opacity: 0.25; pointer-events: none; }
-
     .dots { display: flex; gap: 7px; align-items: center; }
     .dot { width: 6px; height: 6px; border-radius: 50%; background: #e8cece; transition: all 0.4s; }
     .dot.on { background: #8b3a3a; transform: scale(1.4); }
-
     #s-end { padding: 0; background: #000; }
-
-    #end-video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      background: #1a0a0a;
-    }
-
-    #s-end .overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.65) 100%);
-      z-index: 1;
-    }
-
-    #s-end .end-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      padding: 2rem;
-      text-align: center;
-      animation: fadeIn 1.6s ease;
-    }
-
-    #s-end .float-icons {
-      font-size: 1.6rem;
-      letter-spacing: 0.45em;
-      margin-bottom: 1.4rem;
-      animation: floatY 3s ease-in-out infinite;
-    }
+    #end-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    #s-end .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%); z-index: 1; }
+    #s-end .end-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 2rem; text-align: center; }
+    #s-end .float-icons { font-size: 1.6rem; letter-spacing: 0.45em; margin-bottom: 1.4rem; animation: floatY 3s ease-in-out infinite; }
     @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-    #s-end h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 9vw, 6rem);
-      font-weight: 300;
-      font-style: italic;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      text-shadow: 0 2px 40px rgba(0,0,0,0.4);
-    }
-
-    #s-end .tagline {
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.88);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-
-    #s-end .sub {
-      font-size: 0.95rem;
-      color: rgba(255,200,200,0.85);
-      font-style: italic;
-      margin-bottom: 2.6rem;
-    }
-
-    .restart-btn {
-      border: 1px solid rgba(255,255,255,0.4);
-      background: transparent;
-      color: rgba(255,255,255,0.7);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.74rem;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      cursor: pointer;
-      padding: 0.55rem 1.4rem;
-      border-radius: 100px;
-      transition: all 0.3s;
-    }
+    #s-end h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 9vw, 6rem); font-weight: 300; font-style: italic; color: #fff; line-height: 1.1; margin-bottom: 1rem; text-shadow: 0 2px 40px rgba(0,0,0,0.4); }
+    #s-end .tagline { font-size: 1.1rem; color: rgba(255,255,255,0.88); font-weight: 300; margin-bottom: 0.4rem; }
+    #s-end .sub { font-size: 0.95rem; color: rgba(255,200,200,0.85); font-style: italic; margin-bottom: 2.6rem; }
+    .restart-btn { border: 1px solid rgba(255,255,255,0.4); background: transparent; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.13em; text-transform: uppercase; cursor: pointer; padding: 0.55rem 1.4rem; border-radius: 100px; transition: all 0.3s; }
     .restart-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
-
-    #music-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 24px;
-      z-index: 10;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid #e8cece;
-      border-radius: 100px;
-      padding: 0.5rem 1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8b3a3a;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      transition: all 0.3s;
-      display: none;
-    }
-    #music-btn:hover { background: #8b3a3a; color: #fff; border-color: #8b3a3a; }
+    #music-btn { position: fixed; bottom: 20px; right: 24px; z-index: 10; background: rgba(255,255,255,0.85); border: 1px solid #e8cece; border-radius: 100px; padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8b3a3a; cursor: pointer; transition: all 0.3s; display: none; }
     #music-btn.visible { display: block; }
-
-    body.on-end #music-btn {
-      background: rgba(0,0,0,0.4);
-      border-color: rgba(255,255,255,0.3);
-      color: rgba(255,255,255,0.8);
-    }
-    body.on-end #music-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    body.on-end #music-btn { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
+    #unmute-btn { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer; display: none; }
   </style>
 </head>
 <body>
@@ -324,7 +67,6 @@
   <audio id="bg-music" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
-
   <button id="music-btn" onclick="toggleMusic()">♪ pause</button>
 
   <!-- LANDING -->
@@ -339,7 +81,6 @@
   <div class="screen" id="s-story">
     <div class="story-wrap">
 
-      <!-- SLIDE 1 — add your photo: src="photo1.jpg" -->
       <div id="card-0" class="card active">
         <div class="polaroid">
           <img class="polaroid-img" src="photo1.jpg" alt="Memory photo">
@@ -353,7 +94,6 @@
         </div>
       </div>
 
-      <!-- SLIDE 2 — add your photo: src="photo2.jpg" -->
       <div id="card-1" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo2.jpg" alt="Memory photo">
@@ -368,7 +108,6 @@ I crave your touch so much, it makes me feel at home. And I love how you always 
         </div>
       </div>
 
-      <!-- SLIDE 3 — add your photo: src="photo3.jpg" -->
       <div id="card-2" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo3.jpg" alt="Memory photo">
@@ -384,7 +123,6 @@ Just staying in your arms and doing nothing is also an experience. I want more o
         </div>
       </div>
 
-      <!-- SLIDE 4 — add your photo: src="photo4.jpg" -->
       <div id="card-3" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo4.jpg" alt="Memory photo">
@@ -395,12 +133,11 @@ Just staying in your arms and doing nothing is also an experience. I want more o
           <h2>Your smile</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
           <p>I am a really big fanboy of your smile. Your smile has a power nobody else has. It melts me all the time, and it was the first thing that made me fall for you. I mean, who could have such perfect, tiny, aligned teeth with such cute lips?<br><br>
-Talking about your lips — oh, I love them so much. You have such cute, kissable lips. And your eyes, when you smile loudly, get so tiny — I love it. It's your smile against me, and I lose every time.<br><br>
-Oh, and your cutesy voice — oh my God, I just can't keep up. You just can't get any cuter. Please never ever stop with the cute voice. The "tollii," omg, and many more. Literally everything in your cute voice gets me weak in my knees.</p>
+Talking about your lips — oh, I love them so much. And your eyes, when you smile loudly, get so tiny — I love it. It's your smile against me, and I lose every time.<br><br>
+Oh, and your cutesy voice — oh my God, I just can't keep up. Please never ever stop. The "tollii," omg. Literally everything in your cute voice gets me weak in my knees.</p>
         </div>
       </div>
 
-      <!-- SLIDE 5 — add your photo: src="photo5.jpg" -->
       <div id="card-4" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo5.jpg" alt="Memory photo">
@@ -410,12 +147,11 @@ Oh, and your cutesy voice — oh my God, I just can't keep up. You just can't ge
           <div class="chapter-label">Chapter five</div>
           <h2>I don't want to fight 😣</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I know we fight a lot — like, a lot — but you somehow always find a way for us to get back together, and I love that about you. I love how, in the end, we laugh it off. I always find a way to mess it up and make it so embarrassing for myself that you can't help but laugh, even when the situation is really tight.<br><br>
+          <p>I know we fight a lot — like, a lot — but you somehow always find a way for us to get back together, and I love that about you. I love how, in the end, we laugh it off. I always find a way to mess it up and make it so embarrassing for myself that you can't help but laugh.<br><br>
 So here's to more fights and arguments 🥂, because we're both real hot-blooded beings.</p>
         </div>
       </div>
 
-      <!-- SLIDE 6 — add your photo: src="photo6.jpg" -->
       <div id="card-5" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo6.jpg" alt="Memory photo">
@@ -425,12 +161,11 @@ So here's to more fights and arguments 🥂, because we're both real hot-blooded
           <div class="chapter-label">Chapter six</div>
           <h2>What you mean to me</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I want to be by your side in your life, in whatever you do. I want to know everything, and I want to tell you everything about my life because I love your company. You mean so much to me.<br><br>
-I love you with all my heart. My day starts with you and ends with you. You are on my mind all the time, like 24/7 — my first thought about everything is you. I love updating you about every single detail of my day. I want to share my life with you. I want to live with you. You mean a lot to me.</p>
+          <p>I want to be by your side in your life, in whatever you do. You mean so much to me.<br><br>
+I love you with all my heart. My day starts with you and ends with you. You are on my mind all the time, like 24/7 — my first thought about everything is you. I want to share my life with you. I want to live with you. You mean a lot to me.</p>
         </div>
       </div>
 
-      <!-- SLIDE 7 — add your photo: src="photo7.jpg" -->
       <div id="card-6" class="card">
         <div class="polaroid">
           <img class="polaroid-img" src="photo7.jpg" alt="Memory photo">
@@ -446,7 +181,6 @@ I love you with all my heart. My day starts with you and ends with you. You are 
       </div>
 
     </div>
-
     <div class="nav-bar">
       <button class="nav-btn" id="btn-prev" onclick="prev()" disabled>&larr;</button>
       <div class="dots" id="dots"></div>
@@ -456,12 +190,11 @@ I love you with all my heart. My day starts with you and ends with you. You are 
 
   <!-- END SCREEN -->
   <div class="screen" id="s-end">
-    <video id="end-video" autoplay muted loop playsinline>
+    <video id="end-video" muted loop playsinline>
       <source src="https://res.cloudinary.com/dylytzsz4/video/upload/v1776589090/D17DFED4-FB70-40E9-9A76-C30DA87329E0_xs8mvc.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
-    <!-- Tap to unmute button -->
-    <button id="unmute-btn" onclick="unmuteVideo()" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.4rem;border-radius:100px;cursor:pointer;backdrop-filter:blur(6px);display:none;">♪ tap to unmute</button>
+    <button id="unmute-btn" onclick="unmuteVideo()">♪ tap to unmute</button>
     <div class="end-content">
       <div class="float-icons">🌸 ♡ 🌸</div>
       <h1>Happy Birthday,<br/>Sakshi.</h1>
@@ -479,16 +212,16 @@ I love you with all my heart. My day starts with you and ends with you. You are 
     const musicBtn = document.getElementById('music-btn');
     const endVideo = document.getElementById('end-video');
 
-    const petalColors = ['#f7c5c5','#f5d4d4','#f9dce0','#f2c2d2','#fce4ec','#fadadd','#fce8f0'];
+    const petalColors = ['#f7c5c5','#f5d4d4','#f9dce0','#f2c2d2','#fce4ec','#fadadd'];
     for (let i = 0; i < 24; i++) {
       const p = document.createElement('div');
       p.className = 'petal';
       p.style.left = Math.random() * 100 + 'vw';
       p.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
-      p.style.width  = (7  + Math.random() * 9) + 'px';
-      p.style.height = (9  + Math.random() * 11) + 'px';
+      p.style.width = (7 + Math.random() * 9) + 'px';
+      p.style.height = (9 + Math.random() * 11) + 'px';
       p.style.animationDuration = (8 + Math.random() * 12) + 's';
-      p.style.animationDelay   = (Math.random() * 14) + 's';
+      p.style.animationDelay = (Math.random() * 14) + 's';
       document.body.appendChild(p);
     }
 
@@ -536,30 +269,21 @@ I love you with all my heart. My day starts with you and ends with you. You are 
     }
 
     function goEnd() {
-      document.getElementById("s-story").classList.remove("active");
-      document.getElementById("s-end").classList.add("active");
-      document.body.classList.add("on-end");
+      document.getElementById('s-story').classList.remove('active');
+      document.getElementById('s-end').classList.add('active');
+      document.body.classList.add('on-end');
       endVideo.muted = true;
       endVideo.play().then(() => {
         endVideo.muted = false;
       }).catch(() => {
-        document.getElementById("unmute-btn").style.display = "block";
+        document.getElementById('unmute-btn').style.display = 'block';
       });
     }
 
     function unmuteVideo() {
       endVideo.muted = false;
       endVideo.volume = 1;
-      document.getElementById("unmute-btn").style.display = "none";
-    }
-      document.getElementById('s-story').classList.remove('active');
-      document.getElementById('s-end').classList.add('active');
-      document.body.classList.add('on-end');
-      endVideo.muted = false;
-      endVideo.play().catch(() => {
-        endVideo.muted = true;
-        endVideo.play();
-      });
+      document.getElementById('unmute-btn').style.display = 'none';
     }
 
     function restart() {
