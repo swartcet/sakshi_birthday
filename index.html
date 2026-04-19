@@ -11,7 +11,18 @@
     body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 65% 55% at 8% 12%, #f5e6e0 0%, transparent 55%), radial-gradient(ellipse 55% 55% at 92% 85%, #f0e8f5 0%, transparent 55%); pointer-events: none; z-index: 0; }
     .petal { position: fixed; border-radius: 50% 0 50% 0; opacity: 0; pointer-events: none; animation: fall linear infinite; z-index: 0; }
     @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-    .screen { display: none; position: fixed; inset: 0; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 2rem; z-index: 2; }
+    .screen {
+  display: none;
+  position: absolute;   /* FIX */
+  width: 100%;
+  min-height: 100vh;    /* FIX */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+  z-index: 2;
+}
     .screen.active { display: flex; animation: fadeIn 1s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
     #s-start .blossom { font-size: 2.2rem; margin-bottom: 1.2rem; animation: pulse 2.2s ease-in-out infinite; }
