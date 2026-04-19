@@ -460,6 +460,8 @@ I love you with all my heart. My day starts with you and ends with you. You are 
       <source src="https://res.cloudinary.com/dylytzsz4/video/upload/v1776589090/D17DFED4-FB70-40E9-9A76-C30DA87329E0_xs8mvc.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
+    <!-- Tap to unmute button -->
+    <button id="unmute-btn" onclick="unmuteVideo()" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:10;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.4);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.6rem 1.4rem;border-radius:100px;cursor:pointer;backdrop-filter:blur(6px);display:none;">♪ tap to unmute</button>
     <div class="end-content">
       <div class="float-icons">🌸 ♡ 🌸</div>
       <h1>Happy Birthday,<br/>Sakshi.</h1>
@@ -534,6 +536,22 @@ I love you with all my heart. My day starts with you and ends with you. You are 
     }
 
     function goEnd() {
+      document.getElementById("s-story").classList.remove("active");
+      document.getElementById("s-end").classList.add("active");
+      document.body.classList.add("on-end");
+      endVideo.muted = true;
+      endVideo.play().then(() => {
+        endVideo.muted = false;
+      }).catch(() => {
+        document.getElementById("unmute-btn").style.display = "block";
+      });
+    }
+
+    function unmuteVideo() {
+      endVideo.muted = false;
+      endVideo.volume = 1;
+      document.getElementById("unmute-btn").style.display = "none";
+    }
       document.getElementById('s-story').classList.remove('active');
       document.getElementById('s-end').classList.add('active');
       document.body.classList.add('on-end');
