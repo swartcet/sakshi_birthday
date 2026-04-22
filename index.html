@@ -4,96 +4,260 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>For Sakshi 🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --rose: #c96b6b;
+      --rose-dark: #8b3a3a;
+      --rose-light: #f5e0e0;
+      --blush: #fdf6f0;
+      --petal: #fce4ec;
+      --text: #3a2a2a;
+      --text-soft: #9a7575;
+      --border: #e8cece;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'DM Sans', sans-serif; background: #fdf6f0; min-height: 100vh; overflow-y: auto; position: relative; color: #3a2a2a; }
-    body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 65% 55% at 8% 12%, #f5e6e0 0%, transparent 55%), radial-gradient(ellipse 55% 55% at 92% 85%, #f0e8f5 0%, transparent 55%); pointer-events: none; z-index: 0; }
-    .petal { position: fixed; border-radius: 50% 0 50% 0; opacity: 0; pointer-events: none; animation: fall linear infinite; z-index: 0; }
-    @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--blush);
+      min-height: 100vh;
+      overflow: hidden;
+      position: relative;
+      color: var(--text);
+    }
+    .cursor-heart {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1rem;
+      z-index: 9999;
+      animation: heartFloat 1s ease-out forwards;
+      transform: translate(-50%, -50%);
+    }
+    @keyframes heartFloat {
+      0%   { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+      60%  { opacity: 0.9; transform: translate(-50%, -120%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -220%) scale(0.8); }
+    }
+    .petal {
+      position: fixed;
+      border-radius: 50% 0 50% 0;
+      opacity: 0;
+      pointer-events: none;
+      animation: fall linear infinite;
+      z-index: 0;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0.85; }
+      50%  { transform: translateY(50vh) rotate(180deg) translateX(20px); opacity: 0.6; }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
+    }
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+      animation: sparkleAnim 1.4s ease-out forwards;
+    }
+    @keyframes sparkleAnim {
+      0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+      30%  { opacity: 1; transform: scale(1) rotate(45deg); }
+      100% { opacity: 0; transform: scale(0.3) rotate(90deg) translateY(-30px); }
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 55% at 8% 12%, #f5e6e0 0%, transparent 55%),
+        radial-gradient(ellipse 55% 55% at 92% 85%, #f0e8f5 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
     .screen {
-  display: none;
-  position: absolute;   /* FIX */
-  width: 100%;
-  min-height: 100vh;    /* FIX */
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
-  z-index: 2;
-}
-    .screen.active { display: flex; animation: fadeIn 1s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-    #s-start .blossom { font-size: 2.2rem; margin-bottom: 1.2rem; animation: pulse 2.2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
-    #s-start h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 9vw, 5.5rem); font-weight: 300; font-style: italic; color: #8b3a3a; line-height: 1.1; margin-bottom: 0.8rem; }
-    #s-start p { font-size: 1rem; color: #9a7575; font-weight: 300; letter-spacing: 0.06em; margin-bottom: 2.8rem; }
-    .start-btn { border: 1px solid #c9a0a0; background: transparent; color: #8b3a3a; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2.4rem; border-radius: 100px; cursor: pointer; transition: all 0.35s; }
-    .start-btn:hover { background: #8b3a3a; color: #fff; border-color: #8b3a3a; }
-    #s-story { justify-content: space-between; padding: 2rem 1.5rem 1.5rem; }
-    .story-wrap { display: flex; align-items: center; justify-content: center; flex-direction: column; flex: 1; width: 100%; max-width: 860px; margin: 0 auto; }
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+      z-index: 2;
+    }
+    .screen.active { display: flex; }
+    #s-start { animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .landing-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      padding: 3rem 3.5rem;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(180,80,80,0.1), 0 4px 16px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .landing-card::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fce4ec 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .blossom-row {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .blossom-row span { display: inline-block; animation: wobble 2.5s ease-in-out infinite; }
+    .blossom-row span:nth-child(2) { animation-delay: 0.3s; }
+    .blossom-row span:nth-child(3) { animation-delay: 0.6s; }
+    @keyframes wobble {
+      0%,100% { transform: rotate(-8deg) scale(1); }
+      50%      { transform: rotate(8deg) scale(1.2); }
+    }
+    #s-start h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-weight: 300; font-style: italic;
+      color: var(--rose-dark);
+      line-height: 1.1; margin-bottom: 0.6rem;
+    }
+    #s-start p { font-size: 0.98rem; color: var(--text-soft); font-weight: 300; letter-spacing: 0.06em; margin-bottom: 2.4rem; }
+    .start-btn {
+      border: none;
+      background: linear-gradient(135deg, #c96b6b, #8b3a3a);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 1rem 2.8rem; border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 8px 24px rgba(180,60,60,0.3);
+    }
+    .start-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 14px 32px rgba(180,60,60,0.4); }
+    .start-btn:active { transform: scale(0.97); }
+    .btn-emoji { display: inline-block; margin-left: 6px; animation: pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+    #s-story { padding: 1.5rem; justify-content: space-between; gap: 1rem; }
+    .progress-bar-wrap { width: 100%; max-width: 860px; margin: 0 auto; padding: 0 4px; }
+    .progress-track { height: 3px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, #e8a0a0, var(--rose-dark)); border-radius: 100px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); }
+    .progress-label { font-size: 0.68rem; color: var(--text-soft); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; text-align: right; }
+    .story-wrap { display: flex; align-items: center; justify-content: center; flex-direction: column; flex: 1; width: 100%; max-width: 880px; margin: 0 auto; }
     .card { display: none; width: 100%; align-items: center; justify-content: center; gap: 3rem; flex-direction: row; }
-    .card.active { display: flex; animation: cardIn 0.85s cubic-bezier(0.22,1,0.36,1); }
-    @keyframes cardIn { from { opacity: 0; transform: translateY(28px) scale(0.97); } to { opacity: 1; transform: none; } }
-    @media (max-width: 680px) { .card { flex-direction: column; gap: 1.6rem; } }
-    .polaroid { background: #fff; padding: 12px 12px 42px 12px; box-shadow: 0 6px 32px rgba(100,40,40,0.10), 0 2px 8px rgba(100,40,40,0.06); transform: rotate(-3deg); flex-shrink: 0; width: 220px; transition: transform 0.4s ease; }
-    .polaroid:hover { transform: rotate(0deg) scale(1.02); }
+    .card.active { display: flex; animation: cardIn 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes cardIn { from { opacity: 0; transform: translateX(40px) scale(0.96); } to { opacity: 1; transform: none; } }
+    .card.going-back.active { animation: cardInBack 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+    @keyframes cardInBack { from { opacity: 0; transform: translateX(-40px) scale(0.96); } to { opacity: 1; transform: none; } }
+    @media (max-width: 680px) { .card { flex-direction: column; gap: 1.4rem; } #s-story { padding: 1rem; gap: 0.8rem; } }
+    .polaroid {
+      background: #fff; padding: 12px 12px 48px 12px;
+      box-shadow: 0 8px 40px rgba(100,40,40,0.12), 0 2px 8px rgba(100,40,40,0.06);
+      transform: rotate(-3deg); flex-shrink: 0; width: 220px;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+      cursor: pointer; position: relative;
+    }
+    .polaroid::after { content: '🤍'; position: absolute; bottom: 12px; right: 14px; font-size: 0.9rem; opacity: 0; transition: opacity 0.3s, transform 0.3s; transform: scale(0.5); }
+    .polaroid:hover { transform: rotate(0deg) scale(1.05) translateY(-4px); box-shadow: 0 20px 60px rgba(100,40,40,0.18); z-index: 5; }
+    .polaroid:hover::after { opacity: 1; transform: scale(1); }
     .card:nth-child(even) .polaroid { transform: rotate(2.5deg); }
     .polaroid-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; background: linear-gradient(135deg, #f5e6e6 0%, #eedede 100%); min-height: 196px; }
-    .polaroid-caption { font-family: 'Caveat', cursive; font-size: 1rem; color: #8b5a5a; text-align: center; margin-top: 8px; }
+    .polaroid-caption { font-family: 'Caveat', cursive; font-size: 1.1rem; color: #8b5a5a; text-align: center; margin-top: 10px; }
     .card-text { max-width: 380px; text-align: left; }
-    .chapter-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #c9a0a0; margin-bottom: 0.6rem; }
-    .card-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 300; font-style: italic; color: #5c2a2a; line-height: 1.2; margin-bottom: 0.7rem; }
+    .chapter-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: #d4a0a0; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .chapter-label::before { content: ''; display: block; width: 18px; height: 1px; background: #e8cece; }
+    .card-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 300; font-style: italic; color: #5c2a2a; line-height: 1.2; margin-bottom: 0.9rem; }
     .divider { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
-    .divider span { height: 1px; width: 40px; background: #e8cece; display: block; }
+    .divider span { height: 1px; width: 36px; background: var(--border); display: block; }
     .divider em { font-size: 0.6rem; color: #d4a0a0; font-style: normal; }
-    .card-text p { font-size: 0.98rem; line-height: 1.95; color: #6a5050; font-weight: 300; }
-    .nav-bar { display: flex; align-items: center; justify-content: center; gap: 1.4rem; padding-top: 1rem; width: 100%; }
-    .nav-btn { border: 1px solid #c9a0a0; background: transparent; color: #8b3a3a; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.6rem; border-radius: 100px; cursor: pointer; transition: all 0.3s; }
-    .nav-btn:hover { background: #8b3a3a; color: #fff; border-color: #8b3a3a; }
-    .nav-btn:disabled { opacity: 0.25; pointer-events: none; }
-    .dots { display: flex; gap: 7px; align-items: center; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: #e8cece; transition: all 0.4s; }
-    .dot.on { background: #8b3a3a; transform: scale(1.4); }
+    .card-text p { font-size: 0.96rem; line-height: 2; color: #6a5050; font-weight: 300; }
+    .reaction-row { display: flex; gap: 0.5rem; margin-top: 1.2rem; flex-wrap: wrap; }
+    .reaction-btn {
+      background: rgba(255,255,255,0.7); border: 1px solid var(--border); border-radius: 100px;
+      padding: 0.3rem 0.85rem; cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex; align-items: center; gap: 0.35rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--rose-dark);
+      user-select: none;
+    }
+    .reaction-btn:hover { background: #fff; transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .reaction-btn.reacted { background: linear-gradient(135deg, #fce4ec, #fdf0f0); border-color: #f5c0c0; transform: scale(1.15); }
+    .reaction-btn .count { font-size: 0.68rem; color: #c9a0a0; }
+    .nav-bar { display: flex; align-items: center; justify-content: center; gap: 1.2rem; padding-top: 0.8rem; width: 100%; }
+    .nav-btn {
+      border: 1.5px solid var(--border); background: rgba(255,255,255,0.7); color: var(--rose-dark);
+      font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; padding: 0.65rem 1.8rem; border-radius: 100px;
+      cursor: pointer; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); backdrop-filter: blur(8px);
+    }
+    .nav-btn:hover:not(:disabled) { background: var(--rose-dark); color: #fff; border-color: var(--rose-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(139,58,58,0.3); }
+    .nav-btn:active:not(:disabled) { transform: scale(0.96); }
+    .nav-btn:disabled { opacity: 0.2; pointer-events: none; }
+    .next-btn { background: linear-gradient(135deg, #c96b6b, #8b3a3a); color: #fff; border-color: transparent; box-shadow: 0 6px 18px rgba(180,60,60,0.25); }
+    .next-btn:hover:not(:disabled) { background: linear-gradient(135deg, #d47878, #9b4a4a) !important; border-color: transparent; }
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border); transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; }
+    .dot.on { background: var(--rose-dark); transform: scale(1.5); }
+    .dot:hover:not(.on) { background: #d4a0a0; transform: scale(1.2); }
     #s-end { padding: 0; background: #000; }
     #end-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-    #s-end .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%); z-index: 1; }
-    #s-end .end-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 2rem; text-align: center; }
-    #s-end .float-icons { font-size: 1.6rem; letter-spacing: 0.45em; margin-bottom: 1.4rem; animation: floatY 3s ease-in-out infinite; }
-    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    #s-end .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%); z-index: 1; }
+    #s-end .end-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 2rem; text-align: center; animation: popIn 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both; }
+    .float-icons { font-size: 1.8rem; letter-spacing: 0.4em; margin-bottom: 1.2rem; animation: floatY 3s ease-in-out infinite; }
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
     #s-end h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 9vw, 6rem); font-weight: 300; font-style: italic; color: #fff; line-height: 1.1; margin-bottom: 1rem; text-shadow: 0 2px 40px rgba(0,0,0,0.4); }
-    #s-end .tagline { font-size: 1.1rem; color: rgba(255,255,255,0.88); font-weight: 300; margin-bottom: 0.4rem; }
-    #s-end .sub { font-size: 0.95rem; color: rgba(255,200,200,0.85); font-style: italic; margin-bottom: 2.6rem; }
-    .restart-btn { border: 1px solid rgba(255,255,255,0.4); background: transparent; color: rgba(255,255,255,0.7); font-family: 'DM Sans', sans-serif; font-size: 0.74rem; letter-spacing: 0.13em; text-transform: uppercase; cursor: pointer; padding: 0.55rem 1.4rem; border-radius: 100px; transition: all 0.3s; }
-    .restart-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
-    #music-btn { position: fixed; bottom: 20px; right: 24px; z-index: 10; background: rgba(255,255,255,0.85); border: 1px solid #e8cece; border-radius: 100px; padding: 0.5rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8b3a3a; cursor: pointer; transition: all 0.3s; display: none; }
-    #music-btn.visible { display: block; }
-    body.on-end #music-btn { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8); }
-    #unmute-btn { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer; display: none; }
+    #s-end .tagline { font-size: 1.15rem; color: rgba(255,255,255,0.9); font-weight: 300; margin-bottom: 0.4rem; }
+    #s-end .sub { font-size: 1rem; color: rgba(255,200,200,0.9); font-style: italic; margin-bottom: 2.8rem; }
+    .restart-btn { border: 1px solid rgba(255,255,255,0.35); background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); font-family: 'DM Sans', sans-serif; font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; padding: 0.65rem 1.8rem; border-radius: 100px; transition: all 0.3s; backdrop-filter: blur(8px); }
+    .restart-btn:hover { background: rgba(255,255,255,0.2); color: #fff; transform: translateY(-2px); }
+    #music-btn { position: fixed; bottom: 22px; right: 24px; z-index: 10; background: rgba(255,255,255,0.85); border: 1px solid var(--border); border-radius: 100px; padding: 0.55rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose-dark); cursor: pointer; transition: all 0.3s; display: none; backdrop-filter: blur(12px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    #music-btn.visible { display: block; animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+    #music-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    body.on-end #music-btn { background: rgba(0,0,0,0.35); border-color: rgba(255,255,255,0.25); color: rgba(255,255,255,0.8); }
+    #unmute-btn { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 10; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.6rem 1.4rem; border-radius: 100px; cursor: pointer; display: none; backdrop-filter: blur(8px); }
+    .float-heart { position: fixed; pointer-events: none; font-size: 1.4rem; z-index: 3; animation: floatHeart 3s ease-in-out forwards; }
+    @keyframes floatHeart { 0%{opacity:0.9;transform:translateY(0) rotate(var(--rot))} 100%{opacity:0;transform:translateY(-60vh) rotate(calc(var(--rot) + 30deg))} }
+    .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(255,255,255,0.92); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.4rem; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--rose-dark); z-index: 20; opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.1); backdrop-filter: blur(12px); pointer-events: none; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
-
-  <audio id="bg-music" loop>
-    <source src="Justin Bieber - DAISIES.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="bg-music" loop><source src="Justin Bieber - DAISIES.mp3" type="audio/mpeg"></audio>
   <button id="music-btn" onclick="toggleMusic()">♪ pause</button>
+  <div class="toast" id="toast"></div>
 
   <!-- LANDING -->
   <div class="screen active" id="s-start">
-    <div class="blossom">🌸</div>
-    <h1>Hellu babuu.</h1>
-    <p>I made something for you.</p>
-    <button class="start-btn" onclick="goStory()">Open &rarr;</button>
+    <div class="landing-card">
+      <div class="blossom-row"><span>🌸</span><span>🌷</span><span>🌸</span></div>
+      <h1>Hellu babuu.</h1>
+      <p>I made something for you. ♡</p>
+      <button class="start-btn" onclick="goStory()">Open it <span class="btn-emoji">🎀</span></button>
+    </div>
   </div>
 
   <!-- STORY -->
   <div class="screen" id="s-story">
+    <div class="progress-bar-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-label" id="progress-label">Chapter 1 of 7</div>
+    </div>
     <div class="story-wrap">
 
       <div id="card-0" class="card active">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo1.jpg" alt="Memory photo">
           <div class="polaroid-caption">the beginning ♡</div>
         </div>
@@ -102,96 +266,103 @@
           <h2>The beginning</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
           <p>I remember the day when you said "hi" for the first time, but the timing was so bad that you couldn't see my "hi" back, and you thought it was rude 😭🤣. And then there was the day we did garba together for the first time, I mean, I planned and plotted so I could come and play with you 😏. I was so excited, my friends could see it. And then time passed by; we both were planning and plotting for each other, and look where we ended up. I love you so much.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'🥺')"><span>🥺</span><span class="count">so cute</span></button>
+            <button class="reaction-btn" onclick="react(this,'😭')"><span>😭</span><span class="count">aww</span></button>
+            <button class="reaction-btn" onclick="react(this,'🤣')"><span>🤣</span><span class="count">haha</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-1" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo4.jpg" alt="Memory photo">
-
           <div class="polaroid-caption">that day ♡</div>
         </div>
         <div class="card-text">
           <div class="chapter-label">Chapter two</div>
           <h2>Your first ILY</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I love how you first said "I love you." It was so cute and so unexpected. I used to think I say too much, and then you said that, and everything was worth it.<br><br>
-I crave your touch so much, it makes me feel at home. And I love how you always want to touch me. I love holding hands; I love it when you wrap your arm around mine.</p>
+          <p>I love how you first said "I love you." It was so cute and so unexpected. I used to think I say too much, and then you said that, and everything was worth it.<br><br>I crave your touch so much, it makes me feel at home. And I love how you always want to touch me. I love holding hands; I love it when you wrap your arm around mine.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'💗')"><span>💗</span><span class="count">heart</span></button>
+            <button class="reaction-btn" onclick="react(this,'🥹')"><span>🥹</span><span class="count">teary</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-2" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo2.jpg" alt="Memory photo">
-
           <div class="polaroid-caption">my favourite day ♡</div>
         </div>
         <div class="card-text">
           <div class="chapter-label">Chapter three</div>
           <h2>My favorite memory</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>Every day with you is special, but the one I can't get out of my mind — you know what I'm talking about — the night on Navratri when it was raining and it was just us in the car, and it was late. It was such a crazy night, so romantic, almost like we were in a movie.<br><br>
-And almost every beach date has been special. That evening when we were just standing with our arms around each other, watching the water and talking, was so good. I love just being with you.<br><br>
-Just staying in your arms and doing nothing is also an experience. I want more of it, an endless amount of times.</p>
+          <p>Every day with you is special, but the one I can't get out of my mind — you know what I'm talking about — the night on Navratri when it was raining and it was just us in the car, and it was late. It was such a crazy night, so romantic, almost like we were in a movie.<br><br>And almost every beach date has been special. That evening when we were just standing with our arms around each other, watching the water and talking, was so good. I love just being with you.<br><br>Just staying in your arms and doing nothing is also an experience. I want more of it, an endless amount of times.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'🌧️')"><span>🌧️</span><span class="count">navratri rain</span></button>
+            <button class="reaction-btn" onclick="react(this,'🌊')"><span>🌊</span><span class="count">beach</span></button>
+            <button class="reaction-btn" onclick="react(this,'🥰')"><span>🥰</span><span class="count">love</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-3" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo3.jpg" alt="Memory photo">
           <div class="polaroid-caption">us ♡</div>
-</xai:function_call (card-3)
-
-<xai:function_call name="edit_file">
-<parameter name="path">index.html
         </div>
         <div class="card-text">
           <div class="chapter-label">Chapter four</div>
-
           <h2>Your smile</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I am a really big fanboy of your smile. Your smile has a power nobody else has. It melts me all the time, and it was the first thing that made me fall for you. I mean, who could have such perfect, tiny, aligned teeth with such cute lips?<br><br>
-Talking about your lips — oh, I love them so much. And your eyes, when you smile loudly, get so tiny — I love it. It's your smile against me, and I lose every time.<br><br>
-Oh, and your cutesy voice — oh my God, I just can't keep up. Please never ever stop. The "tollii," omg. Literally everything in your cute voice gets me weak in my knees.</p>
+          <p>I am a really big fanboy of your smile. Your smile has a power nobody else has. It melts me all the time, and it was the first thing that made me fall for you. I mean, who could have such perfect, tiny, aligned teeth with such cute lips?<br><br>Talking about your lips — oh, I love them so much. And your eyes, when you smile loudly, get so tiny — I love it. It's your smile against me, and I lose every time.<br><br>Oh, and your cutesy voice — oh my God, I just can't keep up. Please never ever stop. The "tollii," omg. Literally everything in your cute voice gets me weak in my knees.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'😍')"><span>😍</span><span class="count">fanboy</span></button>
+            <button class="reaction-btn" onclick="react(this,'🫠')"><span>🫠</span><span class="count">melting</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-4" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo6.jpg" alt="Memory photo">
           <div class="polaroid-caption">laughing forever ♡</div>
-</xai:function_call (card-4)
-
-<xai:function_call name="edit_file">
-<parameter name="path">index.html
         </div>
         <div class="card-text">
           <div class="chapter-label">Chapter five</div>
-
           <h2>I don't want to fight 😣</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I know we fight a lot — like, a lot — but you somehow always find a way for us to get back together, and I love that about you. I love how, in the end, we laugh it off. I always find a way to mess it up and make it so embarrassing for myself that you can't help but laugh.<br><br>
-So here's to more fights and arguments 🥂, because we're both real hot-blooded beings.</p>
+          <p>I know we fight a lot — like, a lot — but you somehow always find a way for us to get back together, and I love that about you. I love how, in the end, we laugh it off. I always find a way to mess it up and make it so embarrassing for myself that you can't help but laugh.<br><br>So here's to more fights and arguments 🥂, because we're both real hot-blooded beings.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'🥂')"><span>🥂</span><span class="count">cheers to that</span></button>
+            <button class="reaction-btn" onclick="react(this,'😤')"><span>😤</span><span class="count">hot-blooded</span></button>
+            <button class="reaction-btn" onclick="react(this,'🤣')"><span>🤣</span><span class="count">same</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-5" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo5.jpg" alt="Memory photo">
           <div class="polaroid-caption">my whole world ♡</div>
-
         </div>
         <div class="card-text">
           <div class="chapter-label">Chapter six</div>
           <h2>What you mean to me</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I want to be by your side in your life, in whatever you do. You mean so much to me.<br><br>
-I love you with all my heart. My day starts with you and ends with you. You are on my mind all the time, like 24/7 — my first thought about everything is you. I want to share my life with you. I want to live with you. You mean a lot to me.</p>
+          <p>I want to be by your side in your life, in whatever you do. You mean so much to me.<br><br>I love you with all my heart. My day starts with you and ends with you. You are on my mind all the time, like 24/7 — my first thought about everything is you. I want to share my life with you. I want to live with you. You mean a lot to me.</p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'💌')"><span>💌</span><span class="count">love letter</span></button>
+            <button class="reaction-btn" onclick="react(this,'🌍')"><span>🌍</span><span class="count">my world</span></button>
+          </div>
         </div>
       </div>
 
       <div id="card-6" class="card">
-        <div class="polaroid">
+        <div class="polaroid" onclick="polaroidClick(this)">
           <img class="polaroid-img" src="photo7.jpg" alt="Memory photo">
           <div class="polaroid-caption">always ♡</div>
         </div>
@@ -199,20 +370,24 @@ I love you with all my heart. My day starts with you and ends with you. You are 
           <div class="chapter-label">Chapter seven</div>
           <h2>LOVEE</h2>
           <div class="divider"><span></span><em>✦</em><span></span></div>
-          <p>I lovee you so muchhh myygunduupuppiiimyychukuliiimyybabuliiimyygunduliii 😘 bibi<br><br>
-<em>*plis do not show this slide to anyone*</em></p>
+          <p>I lovee you so muchhh myygunduupuppiiimyychukuliiimyybabuliiimyygunduliii 😘 bibi<br><br><em style="font-size:0.85rem; color:#c9a0a0;">*plis do not show this slide to anyone*</em></p>
+          <div class="reaction-row">
+            <button class="reaction-btn" onclick="react(this,'🫶')"><span>🫶</span><span class="count">bibi!</span></button>
+            <button class="reaction-btn" onclick="react(this,'😘')"><span>😘</span><span class="count">mwah</span></button>
+            <button class="reaction-btn" onclick="react(this,'🙈')"><span>🙈</span><span class="count">shhh</span></button>
+          </div>
         </div>
       </div>
 
     </div>
     <div class="nav-bar">
-      <button class="nav-btn" id="btn-prev" onclick="prev()" disabled>&larr;</button>
+      <button class="nav-btn" id="btn-prev" onclick="prev()" disabled>← Back</button>
       <div class="dots" id="dots"></div>
-      <button class="nav-btn" id="btn-next" onclick="next()">Next</button>
+      <button class="nav-btn next-btn" id="btn-next" onclick="next()">Next →</button>
     </div>
   </div>
 
-  <!-- END SCREEN -->
+  <!-- END -->
   <div class="screen" id="s-end">
     <video id="end-video" muted loop playsinline>
       <source src="https://res.cloudinary.com/dylytzsz4/video/upload/v1776589090/D17DFED4-FB70-40E9-9A76-C30DA87329E0_xs8mvc.mp4" type="video/mp4">
@@ -224,30 +399,54 @@ I love you with all my heart. My day starts with you and ends with you. You are 
       <h1>Happy Birthday,<br/>Sakshi.</h1>
       <p class="tagline">And I'd choose you again.</p>
       <p class="sub">Every single time.</p>
-      <button class="restart-btn" onclick="restart()">Read again</button>
+      <button class="restart-btn" onclick="restart()">Read again ↺</button>
     </div>
   </div>
 
   <script>
     const TOTAL = 7;
-    let cur = 0;
-    let musicPlaying = false;
+    let cur = 0, goingBack = false, musicPlaying = false;
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     const endVideo = document.getElementById('end-video');
 
+    // Petals
     const petalColors = ['#f7c5c5','#f5d4d4','#f9dce0','#f2c2d2','#fce4ec','#fadadd'];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 28; i++) {
       const p = document.createElement('div');
       p.className = 'petal';
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.background = petalColors[Math.floor(Math.random() * petalColors.length)];
-      p.style.width = (7 + Math.random() * 9) + 'px';
-      p.style.height = (9 + Math.random() * 11) + 'px';
-      p.style.animationDuration = (8 + Math.random() * 12) + 's';
-      p.style.animationDelay = (Math.random() * 14) + 's';
+      p.style.cssText = `left:${Math.random()*100}vw;background:${petalColors[Math.floor(Math.random()*petalColors.length)]};width:${7+Math.random()*10}px;height:${9+Math.random()*13}px;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*16}s`;
       document.body.appendChild(p);
     }
+
+    // Cursor hearts
+    const heartEmojis = ['🌸','♡','💗','✿','🌷','✦'];
+    let lastHeart = 0;
+    document.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastHeart < 300 || Math.random() > 0.4) return;
+      lastHeart = now;
+      const h = document.createElement('div');
+      h.className = 'cursor-heart';
+      h.textContent = heartEmojis[Math.floor(Math.random()*heartEmojis.length)];
+      h.style.cssText = `left:${e.clientX}px;top:${e.clientY}px`;
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1000);
+    });
+
+    // Click sparkles
+    document.addEventListener('click', e => {
+      for (let i = 0; i < 5; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        const chars = ['✦','✧','⋆','·','✿'];
+        const clrs = ['#c96b6b','#e8a0a0','#d4b0b0','#f5c0c0'];
+        s.textContent = chars[Math.floor(Math.random()*chars.length)];
+        s.style.cssText = `left:${e.clientX+(Math.random()-.5)*40}px;top:${e.clientY+(Math.random()-.5)*40}px;font-size:${.6+Math.random()*.8}rem;color:${clrs[Math.floor(Math.random()*clrs.length)]};animation-delay:${Math.random()*.2}s`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1400);
+      }
+    });
 
     function makeDots() {
       const c = document.getElementById('dots');
@@ -255,79 +454,97 @@ I love you with all my heart. My day starts with you and ends with you. You are 
       for (let i = 0; i < TOTAL; i++) {
         const d = document.createElement('div');
         d.className = 'dot' + (i === cur ? ' on' : '');
+        d.onclick = () => goTo(i);
         c.appendChild(d);
       }
     }
 
-    function showCard() {
-      document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
-      document.getElementById('card-' + cur).classList.add('active');
+    function updateProgress() {
+      document.getElementById('progress-fill').style.width = ((cur+1)/TOTAL*100) + '%';
+      document.getElementById('progress-label').textContent = `Chapter ${cur+1} of ${TOTAL}`;
+    }
+
+    function goTo(idx) {
+      goingBack = idx < cur;
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('active','going-back'));
+      cur = idx;
+      const card = document.getElementById('card-'+cur);
+      if (goingBack) card.classList.add('going-back');
+      card.classList.add('active');
       document.getElementById('btn-prev').disabled = cur === 0;
-      document.getElementById('btn-next').textContent = cur === TOTAL - 1 ? 'Finish ♡' : 'Next';
+      document.getElementById('btn-next').textContent = cur === TOTAL-1 ? 'Finish ♡' : 'Next →';
       makeDots();
+      updateProgress();
     }
 
     function goStory() {
       document.getElementById('s-start').classList.remove('active');
       document.getElementById('s-story').classList.add('active');
       document.body.classList.remove('on-end');
-      cur = 0;
-      showCard();
-      music.play().then(() => {
-        musicPlaying = true;
-        musicBtn.textContent = '♪ pause';
-        musicBtn.classList.add('visible');
-      }).catch(() => {
-        musicBtn.textContent = '♪ play';
-        musicBtn.classList.add('visible');
-      });
+      cur = 0; goTo(0);
+      music.play().then(() => { musicPlaying=true; musicBtn.textContent='♪ pause'; musicBtn.classList.add('visible'); })
+               .catch(() => { musicBtn.textContent='♪ play'; musicBtn.classList.add('visible'); });
     }
 
-    function next() {
-      if (cur < TOTAL - 1) { cur++; showCard(); }
-      else { goEnd(); }
-    }
-
-    function prev() {
-      if (cur > 0) { cur--; showCard(); }
-    }
+    function next() { if (cur < TOTAL-1) { goingBack=false; cur++; goTo(cur); } else { goEnd(); } }
+    function prev() { if (cur > 0) { goingBack=true; cur--; goTo(cur); } }
 
     function goEnd() {
       document.getElementById('s-story').classList.remove('active');
       document.getElementById('s-end').classList.add('active');
       document.body.classList.add('on-end');
       endVideo.muted = true;
-      endVideo.play().then(() => {
-        endVideo.muted = false;
-      }).catch(() => {
-        document.getElementById('unmute-btn').style.display = 'block';
-      });
-    }
-
-    function unmuteVideo() {
-      endVideo.muted = false;
-      endVideo.volume = 1;
-      document.getElementById('unmute-btn').style.display = 'none';
-    }
-
-    function restart() {
-      document.getElementById('s-end').classList.remove('active');
-      endVideo.pause();
-      endVideo.currentTime = 0;
-      goStory();
-    }
-
-    function toggleMusic() {
-      if (musicPlaying) {
-        music.pause();
-        musicPlaying = false;
-        musicBtn.textContent = '♪ play';
-      } else {
-        music.play();
-        musicPlaying = true;
-        musicBtn.textContent = '♪ pause';
+      endVideo.play().then(() => { endVideo.muted=false; }).catch(() => { document.getElementById('unmute-btn').style.display='block'; });
+      const heartArr = ['💗','🌸','♡','💕','🌷','✨'];
+      for (let i=0; i<18; i++) {
+        setTimeout(() => {
+          const fh = document.createElement('div');
+          fh.className = 'float-heart';
+          fh.textContent = heartArr[Math.floor(Math.random()*heartArr.length)];
+          fh.style.cssText = `left:${10+Math.random()*80}vw;bottom:${Math.random()*20}vh;--rot:${(Math.random()-.5)*30}deg;animation-duration:${2.5+Math.random()*2}s`;
+          document.body.appendChild(fh);
+          setTimeout(() => fh.remove(), 5000);
+        }, i*220);
       }
     }
+
+    function unmuteVideo() { endVideo.muted=false; endVideo.volume=1; document.getElementById('unmute-btn').style.display='none'; }
+    function restart() { document.getElementById('s-end').classList.remove('active'); endVideo.pause(); endVideo.currentTime=0; goStory(); }
+    function toggleMusic() {
+      if (musicPlaying) { music.pause(); musicPlaying=false; musicBtn.textContent='♪ play'; }
+      else { music.play(); musicPlaying=true; musicBtn.textContent='♪ pause'; }
+    }
+
+    const toastMessages = ['🌸 so cute!','♡ love this one','✦ a perfect memory','🥰 precious','💕 your smile here!!','🌷 best moment'];
+    let toastIndex = 0;
+    function polaroidClick(el) {
+      el.style.transform = 'rotate(0deg) scale(1.12) translateY(-8px)';
+      setTimeout(() => { el.style.transform=''; }, 600);
+      showToast(toastMessages[toastIndex++ % toastMessages.length]);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function react(btn, emoji) {
+      if (btn.classList.contains('reacted')) return;
+      btn.classList.add('reacted');
+      showToast(emoji + ' noted! ♡');
+      const rect = btn.getBoundingClientRect();
+      for (let i=0; i<4; i++) {
+        const s = document.createElement('div');
+        s.className = 'cursor-heart';
+        s.textContent = emoji;
+        s.style.cssText = `left:${rect.left+rect.width/2}px;top:${rect.top+rect.height/2}px;animation-delay:${i*.08}s;font-size:${.9+Math.random()*.5}rem`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1200);
+      }
+    }
+
+    makeDots(); updateProgress();
   </script>
 </body>
 </html>
