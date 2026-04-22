@@ -231,6 +231,29 @@
     @keyframes floatHeart { 0%{opacity:0.9;transform:translateY(0) rotate(var(--rot))} 100%{opacity:0;transform:translateY(-60vh) rotate(calc(var(--rot) + 30deg))} }
     .toast { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(255,255,255,0.92); border: 1px solid var(--border); border-radius: 100px; padding: 0.6rem 1.4rem; font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--rose-dark); z-index: 20; opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.1); backdrop-filter: blur(12px); pointer-events: none; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* 🔥 FORCE SCROLL FIX */
+html, body {
+  height: auto !important;
+  overflow-y: scroll !important;
+}
+
+#s-story {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-y: scroll !important;
+}
+
+.story-wrap {
+  flex: none !important;
+}
+
+.screen {
+  height: auto !important;
+}
+
+.nav-bar {
+  margin-bottom: 40px;
+}
   </style>
 </head>
 <body>
